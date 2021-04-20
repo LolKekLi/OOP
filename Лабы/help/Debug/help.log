@@ -1,0 +1,3 @@
+﻿  help.cpp
+C:\Уник\ООП\Лабы\Лабы\help\help.cpp(33,18): warning C4244: инициализация: преобразование "std::streamoff" в "int", возможна потеря данных
+  help.vcxproj -> C:\Уник\ООП\Лабы\Лабы\Debug\help.exe
