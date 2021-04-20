@@ -139,9 +139,10 @@ void Start_1(T& mapPerson)
 	for (int i = 0; i < 8; i++)
 	{
 		Number numb;
+		
 		Participant participant;
 		participant.setInfo(name[Random(0, name->size())], kindOfSport[Random(0, kindOfSport->size())], Random(20, 25));
-		mapPerson.insert(i,make_pair(numb, participant));
+		mapPerson.insert(make_pair(numb.numbr, participant));
 	}
 }
 
@@ -161,7 +162,7 @@ void PrintMap(const map<T,U>& map)
 {
 	for (auto i = map.begin(); i != map.end(); ++i )
 	{
-		cout << (*i).first.numbr <<":"<< (*i).second << endl;
+		cout << i->first <<":"<< i->second << endl;
 	}
 	
 }
@@ -169,10 +170,28 @@ void PrintMap(const map<T,U>& map)
 int main()
 {
 #pragma region start
+	int choose;
+	bool islist;
+	cout << "1 - List\n2 - Map";
+	cin >> choose;
+	if(choose == 1)
+	{
+		islist = true;
+	}
+	else if (choose == 2)
+	{
+		islist = false;
+	}
+	else
+	{
+		cout << "Errorn\n";
+	}
+	system("cls");
+	
 	base base;
 	setlocale(LC_ALL, "rus");
 	list<Participant> participants;
-	map<Number, Participant> _map;
+	map<int, Participant> _map;
 	Start(participants);
 	Start_1(_map);
 	PrintMap(_map);
@@ -186,7 +205,7 @@ int main()
 	PrintList(participants);
 	system("cls");*/
 #pragma endregion
-/*#pragma region функционал
+#pragma region функционал
 	bool end = true;
 	while (end)
 	{
@@ -317,7 +336,7 @@ int main()
 			break;
 		}
 	}
-#pragma endregion*/ 	
+#pragma endregion	
 }
 
 

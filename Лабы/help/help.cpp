@@ -1,40 +1,28 @@
 ﻿#include <iostream>
-#include <map>    //подключили библиотеку для работы с map
+#include <map>
+
 using namespace std;
+int main() {
+    setlocale(0, "");
+    map <int, int> mp;
 
-template <typename T,typename U>
-void p(map<T,U>& myFirstMap)
-{
-    for (auto it = myFirstMap.begin(); it != myFirstMap.end(); ++it)
-    {
-        cout << it->first << " : " << it->second << endl;
-    }
-}
+    cout << "Введите количество элементов: ";
+	int n;
+	cin >> n;
 
-int main()
-{
-    map <string, int> myFirstMap = { { "Mother", 37 },
-                                   { "Father", 40 },///map явно инициализирована
-                                   { "Brother", 15 },
-                                   { "Sister", 20 } };
-    p(myFirstMap);
-    /*///вывод явно инициализированной map на экран
-    for (auto it = myFirstMap.begin(); it != myFirstMap.end(); ++it)
-    {
-        cout << it->first << " : " << it->second << endl;
+    for (int i = 0; i < n; i++) {
+        cout << i << ") ";
+    	int a;
+    	cin >> a;
+        mp[a] = i;  // добавляем новые элементы
     }
 
-    char c;
-    map <char, int> mySecondMap;
-    for (int i = 0, c = 'a'; i < 5; ++i, ++c)
-    {
-        mySecondMap.insert(pair<char, int>(c, i));
+    map <int, int> ::iterator it = mp.begin();
+    cout << "А вот все отсортированно: " << endl;
+    for (int i = 0; it != mp.end(); it++, i++) {  // выводим их
+        cout << i << ") Ключ " << it->first << ", значение " << it->second << endl;
     }
 
-    ///вывод не явно инициализированной map на экран
-    for (auto it = mySecondMap.begin(); it != mySecondMap.end(); ++it)
-    {
-        cout << (*it).first << " : " << (*it).second << endl;
-    }*/
+    system("pause");
     return 0;
 }
