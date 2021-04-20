@@ -245,6 +245,13 @@ public:
 		if (flag)
 		{
 			cout << "Такой недвижемости не существует" << endl;
+			int size = prVector.size() - 1;
+			int b = 0;
+			while (size >= b)
+			{
+				stack_0.push(prVector[size]);
+				size--;
+			}
 		}
 		else
 		{
@@ -293,13 +300,18 @@ public:
 				break;
 			}
 		}
+		queue<property> q;
 		if (flag)
 		{
 			cout << "Такой недвижемости не существует" << endl;
+			for (int i = 0; i < qVector.size(); i++)
+			{
+				q.push(qVector[i]);
+			}
+			q.swap(queue_0);
 		}
 		else
-		{
-			queue<property> q;
+		{			
 			property pr;
 			pr.setName(name_);
 			pr.setCost(cost);
@@ -347,6 +359,10 @@ public:
 		if (flag)
 		{
 			cout << "Такой недвижемости не существует" << endl;
+			for (int i = 0; i < pqVector.size(); i++)
+			{
+				pq_property.push(pqVector[i]);
+			}
 		}
 		else
 		{
