@@ -167,6 +167,13 @@ void PrintMap(const map<T,U>& map)
 	
 }
 
+
+void addMap(map<int, Participant>& map, const Participant& participant)
+{
+	Number numb;
+	map.insert(make_pair(numb.numbr, participant));
+}
+
 int main()
 {
 #pragma region start
@@ -237,19 +244,27 @@ int main()
 			cout << "Вид спорта\n";
 			cin >> kindOfsport;
 			addParticipants.setInfo(name, kindOfsport, age);
-			cout << "1 - Добавить в начало\n2 -Добавить в конец" << endl;
-			cin >> temp;
-			if (temp == 1)
+			
+			if (islist)
 			{
-				participants.push_back(addParticipants);
-			}
-			else if (temp == 2)
-			{
-				participants.push_front(addParticipants);
+				cout << "1 - Добавить в начало\n2 -Добавить в конец" << endl;
+				cin >> temp;
+				if (temp == 1)
+				{
+					participants.push_back(addParticipants);
+				}
+				else if (temp == 2)
+				{
+					participants.push_front(addParticipants);
+				}
+				else
+				{
+					cout << "Error\n";
+				}
 			}
 			else
 			{
-				cout << "Error\n";
+				addMap(_map,addParticipants);
 			}
 			break;
 #pragma endregion
@@ -326,7 +341,15 @@ int main()
 			break;
 		case 7:
 			system("cls");
-			PrintList(participants);
+			if (islist)
+			{
+				PrintList(participants);
+			}
+			else
+			{
+				PrintMap(_map);
+			}
+			
 			break;
 		case 0:
 			end = false;
