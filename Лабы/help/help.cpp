@@ -1,28 +1,15 @@
 ﻿#include <iostream>
-#include <map>
+#include <fstream>
 
-using namespace std;
-int main() {
-    setlocale(0, "");
-    map <int, int> mp;
-
-    cout << "Введите количество элементов: ";
-	int n;
-	cin >> n;
-
-    for (int i = 0; i < n; i++) {
-        cout << i << ") ";
-    	int a;
-    	cin >> a;
-        mp[a] = i;  // добавляем новые элементы
+int main()
+{
+    std::ofstream out;          // поток для записи
+    out.open("hello.txt"); // окрываем файл для записи
+    if (out.is_open())
+    {
+        out << "Hello World!" << std::endl;
     }
 
-    map <int, int> ::iterator it = mp.begin();
-    cout << "А вот все отсортированно: " << endl;
-    for (int i = 0; it != mp.end(); it++, i++) {  // выводим их
-        cout << i << ") Ключ " << it->first << ", значение " << it->second << endl;
-    }
-
-    system("pause");
+    std::cout << "End of program" << std::endl;
     return 0;
 }

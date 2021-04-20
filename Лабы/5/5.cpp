@@ -5,7 +5,6 @@
 #include <list>
 using namespace std;
 
-
 class base
 {
 public:
@@ -174,12 +173,62 @@ void addMap(map<int, Participant>& map, const Participant& participant)
 	map.insert(make_pair(numb.numbr, participant));
 }
 
+void deleteMap(map<int, Participant>& map, int numb)
+{
+	auto deltemap = map.find(numb);
+	map.erase(deltemap);
+}
+
+void changeMap( map<int, Participant>& map, Participant& participant, int numb)
+{
+	auto change = map.find(numb);
+	change = map.erase(change);
+	map.insert(make_pair(numb, participant));
+}
+
+void mapFind(const map<int, Participant>& map, const string& cs)
+{
+	auto find = map.begin();
+	bool b_find = false;
+	for (int i = 1; i <= map.size(); i++,++find)
+	{
+		
+		if (find->second.name==cs)
+		{
+			cout << find->first << ":" << find->second << endl;
+			b_find = true;
+		}
+		
+	}
+	if (!b_find)
+	{
+		cout << "Такой человек в соревнованиях не учавствует(\n";
+	}
+}
+
+
+void fileWrite(const map<int, Participant>& map)
+{
+	std::ofstream out;          // поток для записи
+	auto begin = map.begin();
+	out.open("hello.txt"); // окрываем файл для записи
+	if (out.is_open())
+	{
+		for (; begin != map.end(); begin++)
+		{
+			out << begin->first << ":" << begin->second << endl;
+		}
+	}
+	
+	out.close();
+}
+
 int main()
 {
 #pragma region start
 	int choose;
 	bool islist;
-	cout << "1 - List\n2 - Map";
+	cout << "1 - List\n2 - Map"<<endl;
 	cin >> choose;
 	if(choose == 1)
 	{
@@ -201,16 +250,18 @@ int main()
 	map<int, Participant> _map;
 	Start(participants);
 	Start_1(_map);
-	PrintMap(_map);
-	//Start_1(_map);
-	/*cout << "Дамы и Господа\n";
-	Sleep(500);
+	
+	Start_1(_map);
+	cout << "Дамы и Господа\n";
+	Sleep(1000);
 	cout << "Приветствуем вас на ВЕЛИЧАЙШИХ СОРЕВНОВАНИЯХ В ИСТОРИИ\n";
-	Sleep(500);
+	Sleep(1000);
 	cout<<"И так участики соревнований\n"<<endl;
-	Sleep(500);
+	Sleep(1000);
+	PrintMap(_map);
 	PrintList(participants);
-	system("cls");*/
+	Sleep(3000);
+	system("cls");
 #pragma endregion
 #pragma region функционал
 	bool end = true;
@@ -271,42 +322,69 @@ int main()
 #pragma region case2 Удаление
 		case 2:
 			system("cls");
-			PrintList(participants);
-			cout << "Введите номер человека которого хотите удалить" << endl;
-			numb = base.correctInput();
-			if (numb == 1)
+			if (islist)
 			{
-				participants.pop_front();
-			}
-			else if (numb == participants.size())
-			{
-				participants.pop_back();
+				PrintList(participants);
+				cout << "Введите номер человека которого хотите удалить" << endl;
+				numb = base.correctInput();
+				if (numb == 1)
+				{
+					participants.pop_front();
+				}
+				else if (numb == participants.size())
+				{
+					participants.pop_back();
+				}
+				else
+				{
+					for (int i = 0; i < numb - 1; i++, begin++);
+					participants.erase(begin);
+				}
 			}
 			else
 			{
-				for (int i = 0; i < numb - 1; i++, begin++);
-				participants.erase(begin);
+				int numb;
+				PrintMap(_map);
+				cout << "Введите номер человека которого хотите удалить" << endl;
+				numb = base.correctInput();
+				deleteMap(_map, numb);
 			}
-
 			break;
 #pragma endregion
 #pragma region case3 Изменение
 		case 3:
 			system("cls");
-			PrintList(participants);
-			cout << "Введите номер человека информацию о котром фы хотите изменить";
-			numb = base.correctInput();
-			begin = participants.begin();
-			cout << "Введите информцию о новом участнике\nИмя" << endl;
-			cin >> name;
-			cout << "Возраст\n";
-			age = base.correctInput();
-			cout << "Вид спорта\n";
-			cin >> kindOfsport;
-			addParticipants.setInfo(name, kindOfsport, age);
-			for (int i = 0; i <= numb - 2; i++, begin++);
-			begin = participants.erase(begin);
-			participants.insert(begin, addParticipants);
+			if (islist)
+			{
+				PrintList(participants);
+				cout << "Введите номер человека информацию о котром фы хотите изменить";
+				numb = base.correctInput();
+				begin = participants.begin();
+				cout << "Введите информцию о новом участнике\nИмя" << endl;
+				cin >> name;
+				cout << "Возраст\n";
+				age = base.correctInput();
+				cout << "Вид спорта\n";
+				cin >> kindOfsport;
+				addParticipants.setInfo(name, kindOfsport, age);
+				for (int i = 0; i <= numb - 2; i++, begin++);
+				begin = participants.erase(begin);
+				participants.insert(begin, addParticipants);
+			}
+			else
+			{
+				PrintMap(_map);
+				cout << "Введите номер человека информацию о котром фы хотите изменить\n";
+				numb = base.correctInput();
+				cout << "Введите информцию о новом участнике\nИмя" << endl;
+				cin >> name;
+				cout << "Возраст\n";
+				age = base.correctInput();
+				cout << "Вид спорта\n";
+				cin >> kindOfsport;
+				addParticipants.setInfo(name, kindOfsport, age);
+				changeMap(_map,addParticipants, numb);
+			}
 			break;
 #pragma endregion
 #pragma region case4 Поиск
@@ -314,28 +392,58 @@ int main()
 			system("cls");
 			cout << "Введите имя\n";
 			cin >> name;
-			begin = participants.begin();
-			for (int i = 0; i < participants.size(); i++, begin++)
+			if(islist)
 			{
-				if (begin->name == name)
+				bool seccsess = false;
+				begin = participants.begin();
+				for (int i = 0; i < participants.size(); i++, begin++)
 				{
-					cout << *begin << endl;
+					if (begin->name == name)
+					{
+						cout << *begin << endl;
+						seccsess = true;
+					}
+				}
+				if (!seccsess)
+				{
+					cout << "Такой человек в соревнованиях не учавствует(\n";
 				}
 			}
+			else
+			{
+				mapFind(_map, name);
+			}			
 			break;
 #pragma endregion
 #pragma region case5 Сортировка
 		case 5:
 			system("cls");
-			participants.sort();
-			cout << "Список успешно отсортирован)" << endl;
-			break;
+			
+				participants.sort();
+				cout << "Список успешно отсортирован)" << endl;
+				break;
 #pragma endregion	
 		case 6:
-			begin = participants.begin();
-			for (int i = 0; i < participants.size(); i++, begin++)
+			if (islist)
 			{
-				out << begin->name << "\n" << begin->age << "\n" << begin->kindOfSport << "\n";
+				std::ofstream out;          // поток для записи
+				begin = participants.begin();
+				out.open("hello.txt"); // окрываем файл для записи
+				if (out.is_open())
+				{
+					for (int i = 0; i < participants.size(); i++, begin++)
+					{
+						out << begin->name << "\n" << begin->age << "\n" << begin->kindOfSport << "\n";
+					}
+				}
+
+				out.close();
+				
+			}
+			else
+			{
+				fileWrite(_map);					
+				
 			}
 			cout << "Информация об участниках успешна записана\n";
 			break;
