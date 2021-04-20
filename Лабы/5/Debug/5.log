@@ -1,0 +1,24 @@
+﻿  5.cpp
+D:\Уник\ООП\Лабы\OOP\Лабы\5\5.cpp(172,7): warning C4101: base: неиспользованная локальная переменная
+D:\Уник\ООП\Лабы\OOP\Лабы\5\5.cpp(144,1): error C2664: "std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const Number,Participant>>>> std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert(std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const Number,Participant>>>>,std::pair<const Number,Participant> &&)": невозможно преобразовать аргумент 1 из "int" в "std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const Number,Participant>>>>"
+          with
+          [
+              _Kty=Number,
+              _Ty=Participant,
+              _Pr=std::less<Number>,
+              _Alloc=std::allocator<std::pair<const Number,Participant>>
+          ]
+D:\Уник\ООП\Лабы\OOP\Лабы\5\5.cpp(144,1): message : Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333\include\xtree(1361,14): message : см. объявление "std::_Tree<std::_Tmap_traits<_Kty,_Ty,_Pr,_Alloc,false>>::insert"
+          with
+          [
+              _Kty=Number,
+              _Ty=Participant,
+              _Pr=std::less<Number>,
+              _Alloc=std::allocator<std::pair<const Number,Participant>>
+          ]
+D:\Уник\ООП\Лабы\OOP\Лабы\5\5.cpp(177): message : выполняется компиляция ссылки на экземпляр шаблон функции "void Start_1<std::map<Number,Participant,std::less<Number>,std::allocator<std::pair<const Number,Participant>>>>(T &)"
+          with
+          [
+              T=std::map<Number,Participant,std::less<Number>,std::allocator<std::pair<const Number,Participant>>>
+          ]
